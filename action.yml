@@ -1,5 +1,20 @@
 name: 'MailChimp Get Donors'
 description: 'Retrieves donors from MailChimp contacts, groups by donor level and writes YAML files'
+
+inputs:
+  mailchimp_list_id:
+    description: 'MailChimp list ID'
+    required: true
+  mailchimp_segment_id:
+    description: 'MailChimp segment ID'
+    required: true
+  mailchimp_token:
+    description: 'MailChimp API token'
+    required: true
+  mailchimp_server_prefix:
+    description: 'MailChimp server prefix'
+    required: true
+  
 runs:
   using: 'composite'
   steps:
@@ -23,9 +38,9 @@ runs:
 
     - name: Run MailChimp Action
       env:                                                                                                                                                                       
-        MAILCHIMP_LIST_ID: ${{ secrets.MAILCHIMP_LIST_ID }}                                                                                                                      
-        MAILCHIMP_SEGMENT_ID: ${{ secrets.MAILCHIMP_SEGMENT_ID }}                                                                                                                
-        MAILCHIMP_TOKEN: ${{ secrets.MAILCHIMP_TOKEN }}                                                                                                                          
-        MAILCHIMP_SERVER_PREFIX: ${{ secrets.MAILCHIMP_SERVER_PREFIX }}  
+        MAILCHIMP_LIST_ID: ${{ inputs.mailchimp_list_id }}
+        MAILCHIMP_SEGMENT_ID: ${{ inputs.mailchimp_segment_id }}
+        MAILCHIMP_TOKEN: ${{ inputs.mailchimp_token }}
+        MAILCHIMP_SERVER_PREFIX: ${{ inputs.mailchimp_server_prefix }}
       run: python main.py
       shell: bash
