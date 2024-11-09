@@ -3,8 +3,29 @@ description: 'Retrieves donors from MailChimp contacts, groups by donor level an
 runs:
   using: 'composite'
   steps:
-    - name: Run MailChimp Action
+    - name: Setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: Install poetry
+      run: pip install poetry
+      shell: bash
+
+    - name: Install dependencies
       run: |
-        poetry install
-        python main.py
+        if [ -f poetry.lock ]; then
+          poetry install
+        else
+          poetry install --no-root
+        fi
+      shell: bash
+
+    - name: Run MailChimp Action
+      env:                                                                                                                                                                       
+        MAILCHIMP_LIST_ID: ${{ secrets.MAILCHIMP_LIST_ID }}                                                                                                                      
+        MAILCHIMP_SEGMENT_ID: ${{ secrets.MAILCHIMP_SEGMENT_ID }}                                                                                                                
+        MAILCHIMP_TOKEN: ${{ secrets.MAILCHIMP_TOKEN }}                                                                                                                          
+        MAILCHIMP_SERVER_PREFIX: ${{ secrets.MAILCHIMP_SERVER_PREFIX }}  
+      run: python main.py
       shell: bash
