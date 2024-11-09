@@ -1,0 +1,8 @@
+name: 'MailChimp Get Donors'
+description: 'Retrieves donors from MailChimp contacts, groups by donor level and writes YAML files'
+runs:
+  using: 'composite'
+  steps:
+    - name: Run MailChimp Action
+      run: python main.py
+      shell: bash
