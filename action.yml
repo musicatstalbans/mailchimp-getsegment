@@ -18,6 +18,8 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
     - name: Setup python
       uses: actions/setup-python@v5
       with:
