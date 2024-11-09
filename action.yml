@@ -29,6 +29,8 @@ runs:
 
     - name: Install dependencies
       run: |
+        pwd
+        ls
         if [ -f poetry.lock ]; then
           poetry install
         else
