@@ -4,5 +4,7 @@ runs:
   using: 'composite'
   steps:
     - name: Run MailChimp Action
-      run: python main.py
+      run: |
+        poetry install
+        python main.py
       shell: bash
