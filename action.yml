@@ -23,19 +23,8 @@ runs:
       with:
         python-version: '3.13'
 
-    - name: Install poetry
-      run: pip install poetry
-      shell: bash
-
-    - name: Install dependencies
-      run: |
-        pwd
-        ls
-        if [ -f poetry.lock ]; then
-          poetry install
-        else
-          poetry install --no-root
-        fi
+    - name: Install mailchimp dependency
+      run: pip install mailchimp-marketing
       shell: bash
 
     - name: Run MailChimp Action
@@ -44,5 +33,8 @@ runs:
         MAILCHIMP_SEGMENT_ID: ${{ inputs.mailchimp_segment_id }}
         MAILCHIMP_TOKEN: ${{ inputs.mailchimp_token }}
         MAILCHIMP_SERVER_PREFIX: ${{ inputs.mailchimp_server_prefix }}
-      run: python main.py
+      run: |
+        pwd
+        ls -CF
+        python main.py
       shell: bash
